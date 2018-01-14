@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SampleAMCalendar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pBO-Mi-uaK">
+                                <rect key="frame" x="87" y="230" width="200" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="3fj-bG-eaz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aw-Na-zVU">
+                                <rect key="frame" x="62" y="386" width="250" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="FJ3-tD-Fqc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOs-Ye-cmd">
+                                <rect key="frame" x="87.5" y="30" width="200" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bOs-Ye-cmd" secondAttribute="height" multiplier="1:1" id="hjo-Ql-jZP"/>
+                                    <constraint firstAttribute="width" constant="200" id="mwC-mV-gAx"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2aw-V5-4uB">
+                                <rect key="frame" x="62.5" y="407" width="250" height="250"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="846-ra-Nwo"/>
+                                    <constraint firstAttribute="width" secondItem="2aw-V5-4uB" secondAttribute="height" multiplier="1:1" id="i9S-9A-yFn"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="pBO-Mi-uaK" firstAttribute="width" secondItem="bOs-Ye-cmd" secondAttribute="width" id="79z-2Z-d1B"/>
+                            <constraint firstItem="bOs-Ye-cmd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="HFe-Tp-pke"/>
+                            <constraint firstItem="7aw-Na-zVU" firstAttribute="centerX" secondItem="2aw-V5-4uB" secondAttribute="centerX" id="R1z-Do-ZKb"/>
+                            <constraint firstItem="bOs-Ye-cmd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="R3u-FM-y8F"/>
+                            <constraint firstItem="2aw-V5-4uB" firstAttribute="top" secondItem="7aw-Na-zVU" secondAttribute="bottom" id="U48-h6-3z7"/>
+                            <constraint firstItem="pBO-Mi-uaK" firstAttribute="top" secondItem="bOs-Ye-cmd" secondAttribute="bottom" id="aR9-vr-wnD"/>
+                            <constraint firstItem="7aw-Na-zVU" firstAttribute="width" secondItem="2aw-V5-4uB" secondAttribute="width" id="duq-2f-j5Y"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2aw-V5-4uB" secondAttribute="bottom" constant="10" id="oYm-XZ-cBE"/>
+                            <constraint firstItem="pBO-Mi-uaK" firstAttribute="centerX" secondItem="bOs-Ye-cmd" secondAttribute="centerX" id="sGP-ky-EcJ"/>
+                            <constraint firstItem="2aw-V5-4uB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uUd-BF-FK1"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="calendarBaseView1" destination="bOs-Ye-cmd" id="JjN-k5-rgD"/>
+                        <outlet property="calendarBaseView2" destination="2aw-V5-4uB" id="Vxe-uB-jsH"/>
+                        <outlet property="label1" destination="pBO-Mi-uaK" id="taI-ca-YOw"/>
+                        <outlet property="label2" destination="7aw-Na-zVU" id="5vS-ug-Gj0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
