@@ -1,6 +1,6 @@
 //
 //  AMCalendarRootViewController.swift
-//  TestProject
+//  AMCalendar, https://github.com/adventam10/AMCalendar
 //
 //  Created by am10 on 2017/12/31.
 //  Copyright © 2017年 am10. All rights reserved.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol AMCalendarRootViewControllerDelegate: class {
+public protocol AMCalendarRootViewControllerDelegate: class {
     
     func calendarRootViewController(calendarRootViewController: AMCalendarRootViewController, didSelectDate date: Date?)
 }
 
-class AMCalendarRootViewController: UIViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, AMCalendarDataViewControllerDelegate {
+public class AMCalendarRootViewController: UIViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, AMCalendarDataViewControllerDelegate {
     
-    weak var delegate:AMCalendarRootViewControllerDelegate?
+    weak public var delegate:AMCalendarRootViewControllerDelegate?
     
     private let pageViewController = UIPageViewController(transitionStyle: .pageCurl,
                                                           navigationOrientation: .vertical,
@@ -29,7 +29,7 @@ class AMCalendarRootViewController: UIViewController, UIPageViewControllerDelega
     
     private let calendar = Calendar(identifier: .gregorian)
     
-    class func setCalendar(onView:UIView,
+    class public func setCalendar(onView:UIView,
                            parentViewController:UIViewController,
                            selectedDate:Date?,
                            delegate:AMCalendarRootViewControllerDelegate?) -> AMCalendarRootViewController {
@@ -44,13 +44,13 @@ class AMCalendarRootViewController: UIViewController, UIPageViewControllerDelega
         return vc
     }
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
     }
     
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
@@ -118,16 +118,16 @@ class AMCalendarRootViewController: UIViewController, UIPageViewControllerDelega
     }
     
     //MARK:UIPageViewControllerDelegate
-    func pageViewController(_ pageViewController: UIPageViewController,
-                            willTransitionTo pendingViewControllers: [UIViewController]) {
+    public func pageViewController(_ pageViewController: UIPageViewController,
+                                   willTransitionTo pendingViewControllers: [UIViewController]) {
         
         isPageAnimating = true
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController,
-                            didFinishAnimating finished: Bool,
-                            previousViewControllers: [UIViewController],
-                            transitionCompleted completed: Bool) {
+    public func pageViewController(_ pageViewController: UIPageViewController,
+                                   didFinishAnimating finished: Bool,
+                                   previousViewControllers: [UIViewController],
+                                   transitionCompleted completed: Bool) {
         
         if completed || finished {
             
@@ -135,8 +135,8 @@ class AMCalendarRootViewController: UIViewController, UIPageViewControllerDelega
         }
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController,
-                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    public func pageViewController(_ pageViewController: UIPageViewController,
+                                   viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         if isPageAnimating {
             
@@ -150,7 +150,6 @@ class AMCalendarRootViewController: UIViewController, UIPageViewControllerDelega
         
         if index == 0 {
             
-            // 先頭に行ってたら最後のControllerを返す（＝ループ）
             index = pageIndexList.count - 1
             
         } else {
@@ -161,8 +160,8 @@ class AMCalendarRootViewController: UIViewController, UIPageViewControllerDelega
         return createViewController(atIndex: index, isNext: false)
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController,
-                            viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    public func pageViewController(_ pageViewController: UIPageViewController,
+                                   viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
         if isPageAnimating {
             

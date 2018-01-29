@@ -1,6 +1,6 @@
 //
 //  AMCalendarDataViewController.swift
-//  TestProject
+//  AMCalendar, https://github.com/adventam10/AMCalendar
 //
 //  Created by am10 on 2017/12/31.
 //  Copyright © 2017年 am10. All rights reserved.
@@ -19,6 +19,9 @@ class AMCalendarDataViewController: UIViewController {
     
     @IBOutlet private var dayButtons: [UIButton]!
     @IBOutlet weak private var yearMonthLabel: UILabel!
+    
+    private let headerDateFormatter = DateFormatter()
+    
     private let dateFormatter = DateFormatter()
     
     private let selectedDateView = UIView()
@@ -65,19 +68,19 @@ class AMCalendarDataViewController: UIViewController {
     
     private func showSelectView(dayButton:UIButton) {
         
-        selectedDateView.frame = dayButton.frame
-        calendarView.insertSubview(selectedDateView, belowSubview: dayButton)
-        
+        calendarView.insertSubview(selectedDateView, at: 0)
         selectedDateLayer = CAShapeLayer()
         guard let selectedDateLayer = selectedDateLayer else {
             
             return
         }
         
-        var length:CGFloat = (dayButton.frame.width > dayButton.frame.height) ? dayButton.frame.height : dayButton.frame.width
+        let buttonFrame = calendarView.convert(dayButton.bounds, from: dayButton)
+        selectedDateView.frame = buttonFrame
+        var length:CGFloat = (buttonFrame.width > buttonFrame.height) ? buttonFrame.height : buttonFrame.width
         length -= 10
-        let path = UIBezierPath(ovalIn: CGRect(x: dayButton.frame.width/2 - length/2,
-                                               y: dayButton.frame.height/2 - length/2,
+        let path = UIBezierPath(ovalIn: CGRect(x: buttonFrame.width/2 - length/2,
+                                               y: buttonFrame.height/2 - length/2,
                                                width: length,
                                                height: length))
         
@@ -109,14 +112,15 @@ class AMCalendarDataViewController: UIViewController {
             return
         }
         
-        var length:CGFloat = (dayButton.frame.width > dayButton.frame.height) ? dayButton.frame.height : dayButton.frame.width
+        let buttonFrame = calendarView.convert(dayButton.bounds, from: dayButton)
+        var length:CGFloat = (buttonFrame.width > buttonFrame.height) ? buttonFrame.height : buttonFrame.width
         length -= 10
-        let path = UIBezierPath(ovalIn: CGRect(x: dayButton.frame.width/2 - length/2,
-                                                         y: dayButton.frame.height/2 - length/2,
-                                                         width: length,
-                                                         height: length))
+        let path = UIBezierPath(ovalIn: CGRect(x: buttonFrame.width/2 - length/2,
+                                               y: buttonFrame.height/2 - length/2,
+                                               width: length,
+                                               height: length))
         
-        nowDateLayer.frame = dayButton.frame
+        nowDateLayer.frame = buttonFrame
         nowDateLayer.lineWidth = nowDateLayerLineWidth
         nowDateLayer.strokeColor = nowDateColor.cgColor
         nowDateLayer.fillColor = UIColor.clear.cgColor
@@ -136,32 +140,29 @@ class AMCalendarDataViewController: UIViewController {
         setYearMonthLabel(monthDate: monthDate)
         var components = calendar.dateComponents([.year, .month, .day, .weekday], from: monthDate)
         
-        let firstDayOfWeek = components.weekday!   // 最初の曜日
+        let firstDayOfWeek = components.weekday!
         guard let firstDate = calendar.date(from: components) else {
             
             return
         }
     
-         // 月の最終日
         guard let lastDayOfMonth = calendar.range(of: .day, in: .month, for: firstDate)?.count else {
             
             return
         }
         
-        // 前月の情報を取得
         components.day = -1
         guard let lastMonthDate = calendar.date(from: components) else {
             
             return
         }
 
-        // 前月の最終日
         guard let lastDayOfLastMonth = calendar.range(of: .day, in: .month, for: lastMonthDate)?.count else {
             
             return
         }
         
-        let lastMonthDayCount = firstDayOfWeek - 1   // 前月表示する分
+        let lastMonthDayCount = firstDayOfWeek - 1
         
         clearSelectView()
         clearNowDateLayer()
@@ -173,19 +174,17 @@ class AMCalendarDataViewController: UIViewController {
             dayButton.titleLabel?.font = font
             if index < lastMonthDayCount {
                 
-                // 前月の表示
                 components.month = components.month! - 1
                 day = lastDayOfLastMonth - (lastMonthDayCount - index) + 1
                 dayButton.isEnabled = false
                 
             } else if index < lastMonthDayCount + lastDayOfMonth {
                 
-                // 当月の表示
                 day = index - lastMonthDayCount + 1
                 dayButton.isEnabled = true
                 
             } else {
-                // 翌月の表示
+
                 components.month = components.month! + 1
                 day = index - (lastMonthDayCount + lastDayOfMonth) + 1
                 dayButton.isEnabled = false
@@ -198,7 +197,6 @@ class AMCalendarDataViewController: UIViewController {
             components.day = day
             let btnDate = calendar.date(from: components)
             
-            // 選択日付
             if isSameDate(date1: btnDate, date2: selectedDate) {
                 
                 showSelectView(dayButton: dayButton)
@@ -212,7 +210,7 @@ class AMCalendarDataViewController: UIViewController {
             }
             
             if isSameDate(date1: btnDate, date2: Date()) {
-                // 本日
+     
                 showNowDateLayer(dayButton: dayButton)
             }
         }
@@ -221,19 +219,21 @@ class AMCalendarDataViewController: UIViewController {
     private func setWeekLabels() {
     
         weekLabels.forEach{$0.font = adjustLabelFont(rect: $0.frame)}
+        headerDateFormatter.locale = getLocale()
         for (index, label) in weekLabels.enumerated() {
             
-            label.text = dateFormatter.shortWeekdaySymbols[index]
+            label.text = headerDateFormatter.shortWeekdaySymbols[index]
         }
     }
     
     private func setYearMonthLabel(monthDate: Date) {
         
         yearMonthLabel.font = adjustLabelFont(rect: yearMonthLabel.frame)
-        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMM",
-                                                            options: 0,
-                                                            locale: Locale.current)
-        yearMonthLabel.text = dateFormatter.string(from: monthDate)
+        headerDateFormatter.calendar = Calendar.current
+        headerDateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMM",
+                                                                  options: 0,
+                                                                  locale: getLocale())
+        yearMonthLabel.text = headerDateFormatter.string(from: monthDate)
     }
     
  
@@ -258,7 +258,17 @@ class AMCalendarDataViewController: UIViewController {
         return dateFormatter.string(from: date1) == dateFormatter.string(from: date2)
     }
     
-    @IBAction func tappedDayButton(_ dayButton: UIButton) {
+    private func getLocale() -> Locale {
+        
+        guard let langId = Locale.preferredLanguages.first else {
+            
+            return Locale.current
+        }
+        
+        return Locale(identifier: langId)
+    }
+    
+    @IBAction private func tappedDayButton(_ dayButton: UIButton) {
         
         guard let monthDate = monthDate else {
             
@@ -270,7 +280,6 @@ class AMCalendarDataViewController: UIViewController {
         dayButtons.forEach{$0.isSelected = false}
         dayButton.isSelected = true
         
-        // 選択日付を取得
         var components = calendar.dateComponents([.year, .month, .day, .weekday], from: monthDate)
         components.day = Int(dayButton.currentTitle!)
         selectedDate = calendar.date(from: components)
