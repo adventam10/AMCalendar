@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name         = "AMCalendar"
     s.version      = "1.0"
-    s.summary      = "It can display chart."
+    s.summary      = "AMCalendar is a calendar can select date."
     s.license      = { :type => 'MIT', :file => 'LICENSE' }
     s.homepage     = "https://github.com/adventam10/AMCalendar"
     s.author       = { "am10" => "adventam10@gmail.com" }

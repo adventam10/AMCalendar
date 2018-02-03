@@ -29,6 +29,8 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
     
     private let calendar = Calendar(identifier: .gregorian)
     
+    private var firstPageDate:Date?
+    
     class public func setCalendar(onView:UIView,
                            parentViewController:UIViewController,
                            selectedDate:Date?,
@@ -58,7 +60,8 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
     private func setPageViewControlle(date:Date?) {
         
         view.backgroundColor = UIColor.lightGray
-        selectedDate = (date != nil) ? date : Date()
+        selectedDate = date
+        firstPageDate = (date != nil) ? date : Date()
         pageViewController.dataSource = self
         pageViewController.delegate = self
         
@@ -83,14 +86,15 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
             return nil
         }
         
-        let dataViewController = AMCalendarDataViewController()
+        let bundle = Bundle(for: AMCalendarDataViewController.self)
+        let dataViewController = AMCalendarDataViewController(nibName: "AMCalendarDataViewController", bundle: bundle)
         dataViewController.pageIndex = pageIndexList[index]
         dataViewController.delegate = self
         dataViewController.selectedDate = selectedDate
         
         if pageViewController.viewControllers?.count == 0 {
             
-            guard let monthDate = selectedDate else {
+            guard let monthDate = firstPageDate else {
                 
                 return nil
             }
