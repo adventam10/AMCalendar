@@ -18,6 +18,14 @@ delegate: self)
 
 ## Installation
 
+### CocoaPods
+
+Add this to your Podfile.
+
+```ogdl
+pod 'AMCalendar'
+```
+
 ### Carthage
 
 Add this to your Cartfile.
