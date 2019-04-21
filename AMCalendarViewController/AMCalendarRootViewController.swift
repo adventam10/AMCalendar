@@ -34,14 +34,14 @@ public class AMCalendarRootViewController: UIViewController {
                            parentViewController:UIViewController,
                            selectedDate:Date?,
                            delegate:AMCalendarRootViewControllerDelegate?) -> AMCalendarRootViewController {
-        let vc = AMCalendarRootViewController()
-        vc.view.frame = onView.bounds
-        vc.delegate = delegate
-        onView.addSubview(vc.view)
-        vc.setPageViewControlle(date: selectedDate)
-        parentViewController.addChild(vc)
-        vc.didMove(toParent: parentViewController)
-        return vc
+        let viewController = AMCalendarRootViewController()
+        viewController.view.frame = onView.bounds
+        viewController.delegate = delegate
+        onView.addSubview(viewController.view)
+        viewController.setPageViewControlle(date: selectedDate)
+        parentViewController.addChild(viewController)
+        viewController.didMove(toParent: parentViewController)
+        return viewController
     }
     
     override public func viewDidLoad() {
@@ -72,7 +72,7 @@ public class AMCalendarRootViewController: UIViewController {
         
         var pageViewRect = view.bounds
         pageViewRect = pageViewRect.insetBy(dx: 1.0, dy: 1.0)
-        pageViewController.view.frame = pageViewRect;
+        pageViewController.view.frame = pageViewRect
         pageViewController.didMove(toParent: self)
     }
     
