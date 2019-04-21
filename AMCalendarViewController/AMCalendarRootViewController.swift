@@ -9,10 +9,10 @@
 import UIKit
 
 public protocol AMCalendarRootViewControllerDelegate: class {
-    func calendarRootViewController(calendarRootViewController: AMCalendarRootViewController, didSelectDate date: Date?)
+    func calendarRootViewController(_ calendarRootViewController: AMCalendarRootViewController, didSelectDate date: Date?)
 }
 
-public class AMCalendarRootViewController: UIViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, AMCalendarDataViewControllerDelegate {
+public class AMCalendarRootViewController: UIViewController {
     
     weak public var delegate:AMCalendarRootViewControllerDelegate?
     
@@ -111,8 +111,9 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
     private func indexOf(viewController:AMCalendarDataViewController) -> Int? {
         return pageIndexList.firstIndex(of: viewController.pageIndex)
     }
-    
-    //MARK:UIPageViewControllerDelegate
+}
+
+extension AMCalendarRootViewController: UIPageViewControllerDelegate {
     public func pageViewController(_ pageViewController: UIPageViewController,
                                    willTransitionTo pendingViewControllers: [UIViewController]) {
         isPageAnimating = true
@@ -126,7 +127,9 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
             isPageAnimating = false
         }
     }
-    
+}
+
+extension AMCalendarRootViewController: UIPageViewControllerDataSource {
     public func pageViewController(_ pageViewController: UIPageViewController,
                                    viewControllerBefore viewController: UIViewController) -> UIViewController? {
         if isPageAnimating {
@@ -163,12 +166,12 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
         
         return createViewController(atIndex: index, isNext: true)
     }
-    
-    //MARK:AMCalendarDataViewControllerDelegate
-    func calendarDataViewController(calendarDataViewController:AMCalendarDataViewController,
-                                    didSelectDate date:Date?) {
-        selectedDate = date
-        delegate?.calendarRootViewController(calendarRootViewController: self, didSelectDate: date)
-    }
 }
 
+extension AMCalendarRootViewController: AMCalendarDataViewControllerDelegate {
+    func calendarDataViewController(_ calendarDataViewController:AMCalendarDataViewController,
+                                    didSelectDate date:Date?) {
+        selectedDate = date
+        delegate?.calendarRootViewController(self, didSelectDate: date)
+    }
+}

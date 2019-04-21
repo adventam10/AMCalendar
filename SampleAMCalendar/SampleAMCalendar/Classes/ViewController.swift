@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, AMCalendarRootViewControllerDelegate {
+class ViewController: UIViewController {
 
     @IBOutlet weak var label1: UILabel!
     @IBOutlet weak var label2: UILabel!
@@ -20,7 +20,6 @@ class ViewController: UIViewController, AMCalendarRootViewControllerDelegate {
     var calendar2: AMCalendarRootViewController?
     
     let dateFormatter = DateFormatter()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,21 +45,17 @@ class ViewController: UIViewController, AMCalendarRootViewControllerDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+}
 
-    func calendarRootViewController(calendarRootViewController: AMCalendarRootViewController,
+extension ViewController: AMCalendarRootViewControllerDelegate {
+    func calendarRootViewController(_ calendarRootViewController: AMCalendarRootViewController,
                                     didSelectDate date: Date?) {
-        
         if calendar1 == calendarRootViewController {
-
             if let date = date {
-
                 label1.text = dateFormatter.string(from: date)
             }
-
         } else {
-
             if let date = date {
-
                 label2.text = dateFormatter.string(from: date)
             }
         }

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AMCalendarDataViewControllerDelegate: class {
-    func calendarDataViewController(calendarDataViewController: AMCalendarDataViewController, didSelectDate date: Date?)
+    func calendarDataViewController(_ calendarDataViewController: AMCalendarDataViewController, didSelectDate date: Date?)
 }
 
 class AMCalendarDataViewController: UIViewController {
@@ -237,7 +237,7 @@ class AMCalendarDataViewController: UIViewController {
         var components = calendar.dateComponents([.year, .month, .day, .weekday], from: monthDate)
         components.day = Int(dayButton.currentTitle!)
         selectedDate = calendar.date(from: components)
-        delegate?.calendarDataViewController(calendarDataViewController: self, didSelectDate: selectedDate)
+        delegate?.calendarDataViewController(self, didSelectDate: selectedDate)
     }
     
     private func clearNowDateLayer() {
