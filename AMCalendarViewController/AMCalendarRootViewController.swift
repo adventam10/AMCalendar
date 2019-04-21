@@ -41,8 +41,8 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
         vc.delegate = delegate
         onView.addSubview(vc.view)
         vc.setPageViewControlle(date: selectedDate)
-        parentViewController.addChildViewController(vc)
-        vc.didMove(toParentViewController: parentViewController)
+        parentViewController.addChild(vc)
+        vc.didMove(toParent: parentViewController)
         return vc
     }
     
@@ -70,13 +70,13 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
                                               direction: .forward,
                                               animated: false,
                                               completion: nil)
-        addChildViewController(pageViewController)
+        addChild(pageViewController)
         view.addSubview(pageViewController.view)
         
         var pageViewRect = view.bounds
         pageViewRect = pageViewRect.insetBy(dx: 1.0, dy: 1.0)
         pageViewController.view.frame = pageViewRect;
-        pageViewController.didMove(toParentViewController: self)
+        pageViewController.didMove(toParent: self)
     }
     
     private func createViewController(atIndex index:Int, isNext:Bool) -> AMCalendarDataViewController? {
@@ -118,7 +118,7 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
     
     private func indexOf(viewController:AMCalendarDataViewController) -> Int? {
         
-        return pageIndexList.index(of: viewController.pageIndex)
+        return pageIndexList.firstIndex(of: viewController.pageIndex)
     }
     
     //MARK:UIPageViewControllerDelegate
