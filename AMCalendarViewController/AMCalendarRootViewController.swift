@@ -9,7 +9,6 @@
 import UIKit
 
 public protocol AMCalendarRootViewControllerDelegate: class {
-    
     func calendarRootViewController(calendarRootViewController: AMCalendarRootViewController, didSelectDate date: Date?)
 }
 
@@ -35,7 +34,6 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
                            parentViewController:UIViewController,
                            selectedDate:Date?,
                            delegate:AMCalendarRootViewControllerDelegate?) -> AMCalendarRootViewController {
-        
         let vc = AMCalendarRootViewController()
         vc.view.frame = onView.bounds
         vc.delegate = delegate
@@ -58,7 +56,6 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
     }
     
     private func setPageViewControlle(date:Date?) {
-        
         view.backgroundColor = UIColor.lightGray
         selectedDate = date
         firstPageDate = (date != nil) ? date : Date()
@@ -80,9 +77,7 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
     }
     
     private func createViewController(atIndex index:Int, isNext:Bool) -> AMCalendarDataViewController? {
-        
         if pageIndexList.count == 0 || index >= pageIndexList.count {
-            
             return nil
         }
         
@@ -93,9 +88,7 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
         dataViewController.selectedDate = selectedDate
         
         if pageViewController.viewControllers?.count == 0 {
-            
             guard let monthDate = firstPageDate else {
-                
                 return nil
             }
             
@@ -107,7 +100,6 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
         
         let currentViewController = pageViewController.viewControllers![0] as! AMCalendarDataViewController
         guard let monthDate = currentViewController.monthDate else {
-            
             return nil
         }
         var components = DateComponents()
@@ -117,14 +109,12 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
     }
     
     private func indexOf(viewController:AMCalendarDataViewController) -> Int? {
-        
         return pageIndexList.firstIndex(of: viewController.pageIndex)
     }
     
     //MARK:UIPageViewControllerDelegate
     public func pageViewController(_ pageViewController: UIPageViewController,
                                    willTransitionTo pendingViewControllers: [UIViewController]) {
-        
         isPageAnimating = true
     }
     
@@ -132,32 +122,24 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
                                    didFinishAnimating finished: Bool,
                                    previousViewControllers: [UIViewController],
                                    transitionCompleted completed: Bool) {
-        
         if completed || finished {
-            
             isPageAnimating = false
         }
     }
     
     public func pageViewController(_ pageViewController: UIPageViewController,
                                    viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        
         if isPageAnimating {
-            
             return nil
         }
         
         guard var index = indexOf(viewController: viewController as! AMCalendarDataViewController) else {
-            
             return nil
         }
         
         if index == 0 {
-            
             index = pageIndexList.count - 1
-            
         } else {
-            
             index -= 1
         }
         
@@ -166,20 +148,16 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
     
     public func pageViewController(_ pageViewController: UIPageViewController,
                                    viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        
         if isPageAnimating {
-            
             return nil
         }
         
         guard var index = indexOf(viewController: viewController as! AMCalendarDataViewController) else {
-            
             return nil
         }
         
         index += 1
         if index == pageIndexList.count {
-            
             index = 0
         }
         
@@ -189,12 +167,8 @@ public class AMCalendarRootViewController: UIViewController, UIPageViewControlle
     //MARK:AMCalendarDataViewControllerDelegate
     func calendarDataViewController(calendarDataViewController:AMCalendarDataViewController,
                                     didSelectDate date:Date?) {
-        
         selectedDate = date
-        if let delegate = delegate {
-            
-            delegate.calendarRootViewController(calendarRootViewController: self, didSelectDate: date)
-        }
+        delegate?.calendarRootViewController(calendarRootViewController: self, didSelectDate: date)
     }
 }
 

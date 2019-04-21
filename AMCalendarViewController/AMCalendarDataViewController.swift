@@ -9,7 +9,6 @@
 import UIKit
 
 protocol AMCalendarDataViewControllerDelegate: class {
-    
     func calendarDataViewController(calendarDataViewController: AMCalendarDataViewController, didSelectDate date: Date?)
 }
 
@@ -55,7 +54,6 @@ class AMCalendarDataViewController: UIViewController {
     }
 
     override func viewDidLayoutSubviews() {
-        
         super.viewDidLayoutSubviews()
   
         reloadCalendar()
@@ -67,11 +65,9 @@ class AMCalendarDataViewController: UIViewController {
     }
     
     private func showSelectView(dayButton:UIButton) {
-        
         calendarView.insertSubview(selectedDateView, at: 0)
         selectedDateLayer = CAShapeLayer()
         guard let selectedDateLayer = selectedDateLayer else {
-            
             return
         }
         
@@ -94,21 +90,15 @@ class AMCalendarDataViewController: UIViewController {
     }
     
     private func clearSelectView() {
-        
         selectedDateView.removeFromSuperview()
-        if let selectedDateLayer = selectedDateLayer {
-            
-            selectedDateLayer.removeFromSuperlayer()
-        }
+        selectedDateLayer?.removeFromSuperlayer()
         selectedDateLayer = nil
         selectedDateView.isHidden = true
     }
     
     private func showNowDateLayer(dayButton:UIButton) {
-        
         nowDateLayer = CAShapeLayer()
         guard let nowDateLayer = nowDateLayer else {
-            
             return
         }
         
@@ -130,9 +120,7 @@ class AMCalendarDataViewController: UIViewController {
     }
     
     private func reloadCalendar() {
-        
         guard let monthDate = monthDate else {
-            
             return
         }
         
@@ -141,24 +129,14 @@ class AMCalendarDataViewController: UIViewController {
         var components = calendar.dateComponents([.year, .month, .day, .weekday], from: monthDate)
         
         let firstDayOfWeek = components.weekday!
-        guard let firstDate = calendar.date(from: components) else {
-            
-            return
-        }
-    
-        guard let lastDayOfMonth = calendar.range(of: .day, in: .month, for: firstDate)?.count else {
-            
+        guard let firstDate = calendar.date(from: components),
+            let lastDayOfMonth = calendar.range(of: .day, in: .month, for: firstDate)?.count else {
             return
         }
         
         components.day = -1
-        guard let lastMonthDate = calendar.date(from: components) else {
-            
-            return
-        }
-
-        guard let lastDayOfLastMonth = calendar.range(of: .day, in: .month, for: lastMonthDate)?.count else {
-            
+        guard let lastMonthDate = calendar.date(from: components),
+            let lastDayOfLastMonth = calendar.range(of: .day, in: .month, for: lastMonthDate)?.count else {
             return
         }
         
@@ -168,23 +146,17 @@ class AMCalendarDataViewController: UIViewController {
         clearNowDateLayer()
         let font = adjustButtonFont(rect: (dayButtons.first?.frame)!)
         for (index, dayButton) in dayButtons.enumerated() {
-            
             components = calendar.dateComponents([.year, .month, .day, .weekday], from: monthDate)
             var day:Int = 0
             dayButton.titleLabel?.font = font
             if index < lastMonthDayCount {
-                
                 components.month = components.month! - 1
                 day = lastDayOfLastMonth - (lastMonthDayCount - index) + 1
                 dayButton.isEnabled = false
-                
             } else if index < lastMonthDayCount + lastDayOfMonth {
-                
                 day = index - lastMonthDayCount + 1
                 dayButton.isEnabled = true
-                
             } else {
-
                 components.month = components.month! + 1
                 day = index - (lastMonthDayCount + lastDayOfMonth) + 1
                 dayButton.isEnabled = false
@@ -198,36 +170,29 @@ class AMCalendarDataViewController: UIViewController {
             let btnDate = calendar.date(from: components)
             
             if isSameDate(date1: btnDate, date2: selectedDate) {
-                
                 showSelectView(dayButton: dayButton)
                 if dayButton.isEnabled {
-                    
                     dayButton.isSelected = true
                 }
             } else {
-             
                 dayButton.isSelected = false
             }
             
             if isSameDate(date1: btnDate, date2: Date()) {
-     
                 showNowDateLayer(dayButton: dayButton)
             }
         }
     }
     
     private func setWeekLabels() {
-    
         weekLabels.forEach{$0.font = adjustLabelFont(rect: $0.frame)}
         headerDateFormatter.locale = getLocale()
         for (index, label) in weekLabels.enumerated() {
-            
             label.text = headerDateFormatter.shortWeekdaySymbols[index]
         }
     }
     
     private func setYearMonthLabel(monthDate: Date) {
-        
         yearMonthLabel.font = adjustLabelFont(rect: yearMonthLabel.frame)
         headerDateFormatter.calendar = Calendar.current
         headerDateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMM",
@@ -238,19 +203,12 @@ class AMCalendarDataViewController: UIViewController {
     
  
     private func isSameDate(date1: Date?, date2: Date?) -> Bool {
-        
         if date1 == nil && date2 == nil {
-            
             return true
         }
         
-        guard let date1 = date1 else {
-            
-            return false
-        }
-        
-        guard let date2 = date2 else {
-            
+        guard let date1 = date1,
+            let date2 = date2 else {
             return false
         }
         
@@ -259,9 +217,7 @@ class AMCalendarDataViewController: UIViewController {
     }
     
     private func getLocale() -> Locale {
-        
         guard let langId = Locale.preferredLanguages.first else {
-            
             return Locale.current
         }
         
@@ -269,9 +225,7 @@ class AMCalendarDataViewController: UIViewController {
     }
     
     @IBAction private func tappedDayButton(_ dayButton: UIButton) {
-        
         guard let monthDate = monthDate else {
-            
             return
         }
         
@@ -283,30 +237,21 @@ class AMCalendarDataViewController: UIViewController {
         var components = calendar.dateComponents([.year, .month, .day, .weekday], from: monthDate)
         components.day = Int(dayButton.currentTitle!)
         selectedDate = calendar.date(from: components)
-        if let delegate = delegate {
-            
-            delegate.calendarDataViewController(calendarDataViewController: self, didSelectDate: selectedDate)
-        }
+        delegate?.calendarDataViewController(calendarDataViewController: self, didSelectDate: selectedDate)
     }
     
     private func clearNowDateLayer() {
-        
-        if let nowDateLayer = nowDateLayer {
-            
-            nowDateLayer.removeFromSuperlayer()
-        }
+        nowDateLayer?.removeFromSuperlayer()
         nowDateLayer = nil
     }
 
     private func adjustButtonFont(rect: CGRect) -> UIFont {
-        
         let length:CGFloat = (rect.width > rect.height) ? rect.height : rect.width
         let font = UIFont.systemFont(ofSize: length * 0.5)
         return font
     }
     
     private func adjustLabelFont(rect: CGRect) -> UIFont {
-        
         let length:CGFloat = (rect.width > rect.height) ? rect.height : rect.width
         let font = UIFont.systemFont(ofSize: length * 0.5)
         return font
