@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = "AMCalendar"
-    s.version      = "1.0"
+    s.version      = "2.0"
     s.summary      = "AMCalendar is a calendar can select date."
     s.license      = { :type => 'MIT', :file => 'LICENSE' }
     s.homepage     = "https://github.com/adventam10/AMCalendar"
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
     s.requires_arc = true
     s.source_files = 'AMCalendarViewController/*.{swift}'
     s.resources    = 'AMCalendarViewController/*.xib'
-    s.swift_version = "4.0"
+    s.swift_version = "5.0"
 end
 
 
