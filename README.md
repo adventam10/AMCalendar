@@ -1,5 +1,10 @@
 # AMCalendar
 
+![Pod Platform](https://img.shields.io/cocoapods/p/AMCalendar.svg?style=flat)
+![Pod License](https://img.shields.io/cocoapods/l/AMCalendar.svg?style=flat)
+[![Pod Version](https://img.shields.io/cocoapods/v/AMCalendar.svg?style=flat)](http://cocoapods.org/pods/AMCalendar)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 `AMCalendar` is a calendar can select date.
 
 ## Demo
