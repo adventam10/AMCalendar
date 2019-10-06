@@ -16,8 +16,9 @@ class AMCalendarDataViewController: UIViewController {
 
     weak var delegate:AMCalendarDataViewControllerDelegate?
     
+    @IBOutlet private weak var headerView: UIView!
     @IBOutlet private var dayButtons: [UIButton]!
-    @IBOutlet weak private var yearMonthLabel: UILabel!
+    @IBOutlet private weak var yearMonthLabel: UILabel!
     @IBOutlet private var weekLabels: [UILabel]!
     @IBOutlet private weak var calendarView: UIView!
     
@@ -27,12 +28,99 @@ class AMCalendarDataViewController: UIViewController {
     private var selectedDateLayer: CAShapeLayer?
     private var nowDateLayer: CAShapeLayer?
     
+    private var saturdayWeekLabel: UILabel? {
+        guard let weekLabels = weekLabels else {
+            return nil
+        }
+        return weekLabels[6]
+    }
+    
+    private var sundayWeekLabel: UILabel? {
+        return weekLabels?.first
+    }
+    
+    private var defaultWeekLabels: [UILabel]? {
+        guard let weekLabels = weekLabels else {
+            return nil
+        }
+        return Array(weekLabels[1...5])
+    }
+    
+    private var saturdayButtons: [UIButton]? {
+        return dayButtons?.filter { $0.tag % 7 == 6 }
+    }
+    
+    private var sundayButtons: [UIButton]? {
+        return dayButtons?.filter { $0.tag % 7 == 0 }
+    }
+    
+    private var defaultDayButtons: [UIButton]? {
+        return dayButtons?.filter { $0.tag % 7 != 0 && $0.tag % 7 != 6 }
+    }
+    
     var selectedDate: Date?
     var monthDate: Date?
     var pageIndex: Int = 0
     
-    private let selectedDateColor = UIColor.red
-    private let nowDateColor = UIColor.green
+    var headerColor: UIColor = .clear {
+        didSet {
+            headerView?.backgroundColor = headerColor
+        }
+    }
+    
+    var monthTextColor: UIColor = .clear {
+        didSet {
+            yearMonthLabel?.textColor = monthTextColor
+        }
+    }
+    
+    var defaultDateTextColor: UIColor = .clear {
+        didSet {
+            defaultDayButtons?.forEach { $0.setTitleColor(defaultDateTextColor, for: .normal) }
+            defaultWeekLabels?.forEach { $0.textColor = defaultDateTextColor }
+        }
+    }
+    
+    var disabledDateTextColor: UIColor = .clear {
+        didSet {
+            dayButtons?.forEach { $0.setTitleColor(disabledDateTextColor, for: .disabled) }
+        }
+    }
+    
+    var sundayTextColor: UIColor = .clear {
+        didSet {
+            sundayButtons?.forEach { $0.setTitleColor(sundayTextColor, for: .normal) }
+            sundayWeekLabel?.textColor = sundayTextColor
+        }
+    }
+    
+    var saturdayTextColor: UIColor = .clear {
+        didSet {
+            saturdayButtons?.forEach { $0.setTitleColor(saturdayTextColor, for: .normal) }
+            saturdayWeekLabel?.textColor = saturdayTextColor
+        }
+    }
+    
+    var selectedDateTextColor: UIColor = .clear {
+        didSet {
+            dayButtons?.forEach { $0.setTitleColor(selectedDateTextColor, for: .selected) }
+        }
+    }
+    
+    /// Circle color
+    var selectedDateColor: UIColor = .clear {
+        didSet {
+            selectedDateLayer?.fillColor = selectedDateColor.cgColor
+        }
+    }
+    
+    /// Circle border color
+    var nowDateColor: UIColor = .clear {
+        didSet {
+            nowDateLayer?.strokeColor = nowDateColor.cgColor
+        }
+    }
+
     private let nowDateLayerLineWidth: CGFloat = 1.0
     private let calendar = Calendar(identifier: .gregorian)
     
@@ -42,6 +130,20 @@ class AMCalendarDataViewController: UIViewController {
         // Do any additional setup after loading the view.
         dayButtons.sort { $0.tag < $1.tag }
         weekLabels.sort { $0.tag < $1.tag }
+        
+        headerView.backgroundColor = headerColor
+        yearMonthLabel.textColor = monthTextColor
+        defaultDayButtons?.forEach { $0.setTitleColor(defaultDateTextColor, for: .normal) }
+        defaultWeekLabels?.forEach { $0.textColor = defaultDateTextColor }
+        dayButtons.forEach {
+            $0.setTitleColor(disabledDateTextColor, for: .disabled)
+            $0.setTitleColor(selectedDateTextColor, for: .selected)
+            $0.setTitleColor(selectedDateTextColor, for: [.selected, .highlighted])
+        }
+        sundayButtons?.forEach{ $0.setTitleColor(sundayTextColor, for: .normal) }
+        sundayWeekLabel?.textColor = sundayTextColor
+        saturdayButtons?.forEach { $0.setTitleColor(saturdayTextColor, for: .normal) }
+        saturdayWeekLabel?.textColor = saturdayTextColor
     }
 
     override func viewDidLayoutSubviews() {
@@ -59,7 +161,7 @@ class AMCalendarDataViewController: UIViewController {
         
         let buttonFrame = calendarView.convert(dayButton.bounds, from: dayButton)
         selectedDateView.frame = buttonFrame
-        var length:CGFloat = (buttonFrame.width > buttonFrame.height) ? buttonFrame.height : buttonFrame.width
+        var length: CGFloat = (buttonFrame.width > buttonFrame.height) ? buttonFrame.height : buttonFrame.width
         length -= 10
         let path = UIBezierPath(ovalIn: CGRect(x: buttonFrame.width/2 - length/2,
                                                y: buttonFrame.height/2 - length/2,
@@ -88,7 +190,7 @@ class AMCalendarDataViewController: UIViewController {
         }
         
         let buttonFrame = calendarView.convert(dayButton.bounds, from: dayButton)
-        var length:CGFloat = (buttonFrame.width > buttonFrame.height) ? buttonFrame.height : buttonFrame.width
+        var length: CGFloat = (buttonFrame.width > buttonFrame.height) ? buttonFrame.height : buttonFrame.width
         length -= 10
         let path = UIBezierPath(ovalIn: CGRect(x: buttonFrame.width/2 - length/2,
                                                y: buttonFrame.height/2 - length/2,
@@ -170,7 +272,7 @@ class AMCalendarDataViewController: UIViewController {
     }
     
     private func setWeekLabels() {
-        weekLabels.forEach{$0.font = adjustLabelFont(rect: $0.frame)}
+        weekLabels.forEach { $0.font = adjustLabelFont(rect: $0.frame) }
         headerDateFormatter.locale = getLocale()
         for (index, label) in weekLabels.enumerated() {
             label.text = headerDateFormatter.shortWeekdaySymbols[index]

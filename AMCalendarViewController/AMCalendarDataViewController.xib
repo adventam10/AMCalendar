@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMCalendarDataViewController" customModule="SampleAMCalendar" customModuleProvider="target">
             <connections>
                 <outlet property="calendarView" destination="emG-RW-9wf" id="5Jz-Rf-iBG"/>
+                <outlet property="headerView" destination="zhC-4j-NOr" id="2h0-AW-Mwy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="yearMonthLabel" destination="QHo-tp-JPJ" id="In9-xV-FXR"/>
                 <outletCollection property="weekLabels" destination="7Mr-vm-5po" collectionClass="NSMutableArray" id="0pr-ds-TGF"/>
@@ -252,7 +250,7 @@
                                             <rect key="frame" x="321.5" y="0.0" width="53.5" height="94.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <state key="normal" title="6">
-                                                <color key="titleColor" red="0.099191825359999999" green="0.411326739" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="titleColor" red="0.098039215686274508" green="0.411326739" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             </state>
                                             <state key="disabled">
                                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

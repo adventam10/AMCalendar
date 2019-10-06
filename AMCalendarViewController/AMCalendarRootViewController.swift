@@ -22,14 +22,73 @@ class AMCalendarRootViewController: AMCalendar {
     private var firstPageDate: Date?
     private var isPageAnimating = false
     
+    private var dataViewControllers: [AMCalendarDataViewController] {
+        return pageViewController.viewControllers as! [AMCalendarDataViewController]
+    }
+    
+    override var headerColor: UIColor {
+        didSet {
+            dataViewControllers.forEach { $0.headerColor = headerColor }
+            view.backgroundColor = headerColor
+        }
+    }
+    
+    override var monthTextColor: UIColor {
+        didSet {
+            dataViewControllers.forEach { $0.monthTextColor = monthTextColor }
+        }
+    }
+    
+    override var defaultDateTextColor: UIColor {
+        didSet {
+            dataViewControllers.forEach { $0.defaultDateTextColor = defaultDateTextColor }
+        }
+    }
+    
+    override var disabledDateTextColor: UIColor {
+        didSet {
+            dataViewControllers.forEach { $0.disabledDateTextColor = disabledDateTextColor }
+        }
+    }
+    
+    override var sundayTextColor: UIColor {
+        didSet {
+            dataViewControllers.forEach { $0.sundayTextColor = sundayTextColor }
+        }
+    }
+    
+    override var saturdayTextColor: UIColor {
+        didSet {
+            dataViewControllers.forEach { $0.saturdayTextColor = saturdayTextColor }
+        }
+    }
+    
+    override var selectedDateTextColor: UIColor {
+        didSet {
+            dataViewControllers.forEach { $0.selectedDateTextColor = selectedDateTextColor }
+        }
+    }
+    
+    override var selectedDateColor: UIColor {
+        didSet {
+            dataViewControllers.forEach { $0.selectedDateColor = selectedDateColor }
+        }
+    }
+    
+    override var nowDateColor: UIColor {
+        didSet {
+            dataViewControllers.forEach { $0.nowDateColor = nowDateColor }
+        }
+    }
+    
     func setPageViewControlle(date: Date?) {
-        view.backgroundColor = UIColor.lightGray
+        view.backgroundColor = headerColor
         selectedDate = date
         firstPageDate = (date != nil) ? date : Date()
         pageViewController.dataSource = self
         pageViewController.delegate = self
         
-        let startingViewController = createViewController(atIndex: 0, isNext: true)
+        let startingViewController = makeViewController(atIndex: 0, isNext: true)
         pageViewController.setViewControllers([startingViewController!],
                                               direction: .forward,
                                               animated: false,
@@ -43,17 +102,12 @@ class AMCalendarRootViewController: AMCalendar {
         pageViewController.didMove(toParent: self)
     }
     
-    private func createViewController(atIndex index: Int, isNext: Bool) -> AMCalendarDataViewController? {
+    private func makeViewController(atIndex index: Int, isNext: Bool) -> AMCalendarDataViewController? {
         if pageIndexList.count == 0 || index >= pageIndexList.count {
             return nil
         }
         
-        let bundle = Bundle(for: AMCalendarDataViewController.self)
-        let dataViewController = AMCalendarDataViewController(nibName: "AMCalendarDataViewController", bundle: bundle)
-        dataViewController.pageIndex = pageIndexList[index]
-        dataViewController.delegate = self
-        dataViewController.selectedDate = selectedDate
-        
+        let dataViewController = makeDataViewController(index: index)
         if pageViewController.viewControllers?.count == 0 {
             guard let monthDate = firstPageDate else {
                 return nil
@@ -75,7 +129,25 @@ class AMCalendarRootViewController: AMCalendar {
         return dataViewController
     }
     
-    private func indexOf(viewController: AMCalendarDataViewController) -> Int? {
+    private func makeDataViewController(index: Int) -> AMCalendarDataViewController {
+        let bundle = Bundle(for: AMCalendarDataViewController.self)
+        let viewController = AMCalendarDataViewController(nibName: "AMCalendarDataViewController", bundle: bundle)
+        viewController.pageIndex = pageIndexList[index]
+        viewController.delegate = self
+        viewController.selectedDate = selectedDate
+        viewController.headerColor = headerColor
+        viewController.monthTextColor = monthTextColor
+        viewController.defaultDateTextColor = defaultDateTextColor
+        viewController.disabledDateTextColor = disabledDateTextColor
+        viewController.sundayTextColor = sundayTextColor
+        viewController.saturdayTextColor = saturdayTextColor
+        viewController.selectedDateTextColor = selectedDateTextColor
+        viewController.selectedDateColor = selectedDateColor
+        viewController.nowDateColor = nowDateColor
+        return viewController
+    }
+    
+    private func index(of viewController: AMCalendarDataViewController) -> Int? {
         return pageIndexList.firstIndex(of: viewController.pageIndex)
     }
 }
@@ -100,23 +172,23 @@ extension AMCalendarRootViewController: UIPageViewControllerDataSource {
     public func pageViewController(_ pageViewController: UIPageViewController,
                                    viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard !isPageAnimating,
-           var index = indexOf(viewController: viewController as! AMCalendarDataViewController) else {
+           var index = index(of: viewController as! AMCalendarDataViewController) else {
             return nil
         }
         
         index = index == 0 ? pageIndexList.count - 1 : index - 1
-        return createViewController(atIndex: index, isNext: false)
+        return makeViewController(atIndex: index, isNext: false)
     }
     
     public func pageViewController(_ pageViewController: UIPageViewController,
                                    viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard !isPageAnimating,
-           var index = indexOf(viewController: viewController as! AMCalendarDataViewController) else {
+           var index = index(of: viewController as! AMCalendarDataViewController) else {
             return nil
         }
        
         index = index == pageIndexList.indices.last ? 0 : index + 1
-        return createViewController(atIndex: index, isNext: true)
+        return makeViewController(atIndex: index, isNext: true)
     }
 }
 

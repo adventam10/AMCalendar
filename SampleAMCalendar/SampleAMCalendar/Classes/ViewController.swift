@@ -34,6 +34,15 @@ class ViewController: UIViewController {
                                                  parentViewController: self,
                                                  selectedDate: nil,
                                                  delegate: self)
+        calendar2?.headerColor = .purple
+        calendar2?.monthTextColor = .yellow
+        calendar2?.defaultDateTextColor = .orange
+        calendar2?.disabledDateTextColor = .brown
+        calendar2?.sundayTextColor = .green
+        calendar2?.saturdayTextColor = .cyan
+        calendar2?.selectedDateTextColor = .blue
+        calendar2?.selectedDateColor = .magenta
+        calendar2?.nowDateColor = .black
         
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateFormat = "yyyy/MM/dd"

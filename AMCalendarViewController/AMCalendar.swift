@@ -9,6 +9,7 @@
 import UIKit
 
 public class AMCalendar: UIViewController {
+    @discardableResult
     public static func setCalendar(onView: UIView,
                             parentViewController: UIViewController,
                             selectedDate: Date?,
@@ -22,6 +23,18 @@ public class AMCalendar: UIViewController {
         viewController.didMove(toParent: parentViewController)
         return viewController
     }
+    
+    public var headerColor: UIColor = .gray
+    public var monthTextColor: UIColor = .black
+    public var defaultDateTextColor: UIColor = .black
+    public var disabledDateTextColor: UIColor = .lightGray
+    public var sundayTextColor: UIColor = .red
+    public var saturdayTextColor: UIColor = .init(red: 25.0 / 255.0 , green: 105.0 / 255.0, blue: 255.0 / 255.0 , alpha: 1.0)
+    public var selectedDateTextColor: UIColor = .white
+    /// Circle color
+    public var selectedDateColor: UIColor = .red
+    /// Circle border color
+    public var nowDateColor: UIColor = .green
 }
 
 public protocol AMCalendarDelegate: AnyObject {
