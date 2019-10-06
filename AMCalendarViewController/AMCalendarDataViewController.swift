@@ -112,7 +112,10 @@ class AMCalendarDataViewController: UIViewController {
     
     var selectedDateTextColor: UIColor = .clear {
         didSet {
-            dayButtons?.forEach { $0.setTitleColor(selectedDateTextColor, for: .selected) }
+            dayButtons?.forEach {
+                $0.setTitleColor(selectedDateTextColor, for: .selected)
+                $0.setTitleColor(selectedDateTextColor, for: [.selected, .highlighted])
+            }
         }
     }
     
