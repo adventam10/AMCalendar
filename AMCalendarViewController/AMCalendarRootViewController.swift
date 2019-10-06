@@ -8,13 +8,9 @@
 
 import UIKit
 
-public protocol AMCalendarRootViewControllerDelegate: AnyObject {
-    func calendarRootViewController(_ calendarRootViewController: AMCalendarRootViewController, didSelectDate date: Date?)
-}
-
-public class AMCalendarRootViewController: UIViewController {
+class AMCalendarRootViewController: AMCalendar {
     
-    weak public var delegate: AMCalendarRootViewControllerDelegate?
+    weak public var delegate: AMCalendarDelegate?
     
     private let pageViewController = UIPageViewController(transitionStyle: .pageCurl,
                                                           navigationOrientation: .vertical,
@@ -26,21 +22,7 @@ public class AMCalendarRootViewController: UIViewController {
     private var firstPageDate: Date?
     private var isPageAnimating = false
     
-    class public func setCalendar(onView: UIView,
-                                  parentViewController: UIViewController,
-                                  selectedDate: Date?,
-                                  delegate: AMCalendarRootViewControllerDelegate?) -> AMCalendarRootViewController {
-        let viewController = AMCalendarRootViewController()
-        viewController.view.frame = onView.bounds
-        viewController.delegate = delegate
-        onView.addSubview(viewController.view)
-        viewController.setPageViewControlle(date: selectedDate)
-        parentViewController.addChild(viewController)
-        viewController.didMove(toParent: parentViewController)
-        return viewController
-    }
-    
-    private func setPageViewControlle(date: Date?) {
+    func setPageViewControlle(date: Date?) {
         view.backgroundColor = UIColor.lightGray
         selectedDate = date
         firstPageDate = (date != nil) ? date : Date()
@@ -142,6 +124,6 @@ extension AMCalendarRootViewController: AMCalendarDataViewControllerDelegate {
     func calendarDataViewController(_ calendarDataViewController: AMCalendarDataViewController,
                                     didSelectDate date: Date?) {
         selectedDate = date
-        delegate?.calendarRootViewController(self, didSelectDate: date)
+        delegate?.calendar(self, didSelectDate: date)
     }
 }
