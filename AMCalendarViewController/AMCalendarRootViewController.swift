@@ -8,32 +8,28 @@
 
 import UIKit
 
-public protocol AMCalendarRootViewControllerDelegate: class {
+public protocol AMCalendarRootViewControllerDelegate: AnyObject {
     func calendarRootViewController(_ calendarRootViewController: AMCalendarRootViewController, didSelectDate date: Date?)
 }
 
 public class AMCalendarRootViewController: UIViewController {
     
-    weak public var delegate:AMCalendarRootViewControllerDelegate?
+    weak public var delegate: AMCalendarRootViewControllerDelegate?
     
     private let pageViewController = UIPageViewController(transitionStyle: .pageCurl,
                                                           navigationOrientation: .vertical,
                                                           options: nil)
-    
-    private let pageIndexList:[Int] = [0, 1, 2, 3, 4]
-    
-    private var selectedDate:Date?
-    
-    private var isPageAnimating = false
-    
+    private let pageIndexList: [Int] = [0, 1, 2, 3, 4]
     private let calendar = Calendar(identifier: .gregorian)
     
-    private var firstPageDate:Date?
+    private var selectedDate: Date?
+    private var firstPageDate: Date?
+    private var isPageAnimating = false
     
-    class public func setCalendar(onView:UIView,
-                           parentViewController:UIViewController,
-                           selectedDate:Date?,
-                           delegate:AMCalendarRootViewControllerDelegate?) -> AMCalendarRootViewController {
+    class public func setCalendar(onView: UIView,
+                                  parentViewController: UIViewController,
+                                  selectedDate: Date?,
+                                  delegate: AMCalendarRootViewControllerDelegate?) -> AMCalendarRootViewController {
         let viewController = AMCalendarRootViewController()
         viewController.view.frame = onView.bounds
         viewController.delegate = delegate
@@ -44,18 +40,7 @@ public class AMCalendarRootViewController: UIViewController {
         return viewController
     }
     
-    override public func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-    }
-    
-    override public func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    private func setPageViewControlle(date:Date?) {
+    private func setPageViewControlle(date: Date?) {
         view.backgroundColor = UIColor.lightGray
         selectedDate = date
         firstPageDate = (date != nil) ? date : Date()
@@ -76,7 +61,7 @@ public class AMCalendarRootViewController: UIViewController {
         pageViewController.didMove(toParent: self)
     }
     
-    private func createViewController(atIndex index:Int, isNext:Bool) -> AMCalendarDataViewController? {
+    private func createViewController(atIndex index: Int, isNext: Bool) -> AMCalendarDataViewController? {
         if pageIndexList.count == 0 || index >= pageIndexList.count {
             return nil
         }
@@ -108,7 +93,7 @@ public class AMCalendarRootViewController: UIViewController {
         return dataViewController
     }
     
-    private func indexOf(viewController:AMCalendarDataViewController) -> Int? {
+    private func indexOf(viewController: AMCalendarDataViewController) -> Int? {
         return pageIndexList.firstIndex(of: viewController.pageIndex)
     }
 }
@@ -132,45 +117,30 @@ extension AMCalendarRootViewController: UIPageViewControllerDelegate {
 extension AMCalendarRootViewController: UIPageViewControllerDataSource {
     public func pageViewController(_ pageViewController: UIPageViewController,
                                    viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        if isPageAnimating {
+        guard !isPageAnimating,
+           var index = indexOf(viewController: viewController as! AMCalendarDataViewController) else {
             return nil
         }
         
-        guard var index = indexOf(viewController: viewController as! AMCalendarDataViewController) else {
-            return nil
-        }
-        
-        if index == 0 {
-            index = pageIndexList.count - 1
-        } else {
-            index -= 1
-        }
-        
+        index = index == 0 ? pageIndexList.count - 1 : index - 1
         return createViewController(atIndex: index, isNext: false)
     }
     
     public func pageViewController(_ pageViewController: UIPageViewController,
                                    viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        if isPageAnimating {
+        guard !isPageAnimating,
+           var index = indexOf(viewController: viewController as! AMCalendarDataViewController) else {
             return nil
         }
-        
-        guard var index = indexOf(viewController: viewController as! AMCalendarDataViewController) else {
-            return nil
-        }
-        
-        index += 1
-        if index == pageIndexList.count {
-            index = 0
-        }
-        
+       
+        index = index == pageIndexList.indices.last ? 0 : index + 1
         return createViewController(atIndex: index, isNext: true)
     }
 }
 
 extension AMCalendarRootViewController: AMCalendarDataViewControllerDelegate {
-    func calendarDataViewController(_ calendarDataViewController:AMCalendarDataViewController,
-                                    didSelectDate date:Date?) {
+    func calendarDataViewController(_ calendarDataViewController: AMCalendarDataViewController,
+                                    didSelectDate date: Date?) {
         selectedDate = date
         delegate?.calendarRootViewController(self, didSelectDate: date)
     }

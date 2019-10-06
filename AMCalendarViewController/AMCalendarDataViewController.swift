@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AMCalendarDataViewControllerDelegate: class {
+protocol AMCalendarDataViewControllerDelegate: AnyObject {
     func calendarDataViewController(_ calendarDataViewController: AMCalendarDataViewController, didSelectDate date: Date?)
 }
 
@@ -18,39 +18,30 @@ class AMCalendarDataViewController: UIViewController {
     
     @IBOutlet private var dayButtons: [UIButton]!
     @IBOutlet weak private var yearMonthLabel: UILabel!
-    
-    private let headerDateFormatter = DateFormatter()
-    
-    private let dateFormatter = DateFormatter()
-    
-    private let selectedDateView = UIView()
-    
-    private var selectedDateLayer:CAShapeLayer?
-    
-    private var nowDateLayer:CAShapeLayer?
-    
     @IBOutlet private var weekLabels: [UILabel]!
     @IBOutlet private weak var calendarView: UIView!
-    var selectedDate:Date?
     
-    var monthDate:Date?
+    private let headerDateFormatter = DateFormatter()
+    private let dateFormatter = DateFormatter()
+    private let selectedDateView = UIView()
+    private var selectedDateLayer: CAShapeLayer?
+    private var nowDateLayer: CAShapeLayer?
     
-    var pageIndex:Int = 0
+    var selectedDate: Date?
+    var monthDate: Date?
+    var pageIndex: Int = 0
     
     private let selectedDateColor = UIColor.red
-    
     private let nowDateColor = UIColor.green
-    
-    private let nowDateLayerLineWidth:CGFloat = 1.0
-    
+    private let nowDateLayerLineWidth: CGFloat = 1.0
     private let calendar = Calendar(identifier: .gregorian)
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        dayButtons.sort{$0.tag < $1.tag}
-        weekLabels.sort{$0.tag < $1.tag}
+        dayButtons.sort { $0.tag < $1.tag }
+        weekLabels.sort { $0.tag < $1.tag }
     }
 
     override func viewDidLayoutSubviews() {
@@ -59,12 +50,7 @@ class AMCalendarDataViewController: UIViewController {
         reloadCalendar()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    private func showSelectView(dayButton:UIButton) {
+    private func showSelectView(dayButton: UIButton) {
         calendarView.insertSubview(selectedDateView, at: 0)
         selectedDateLayer = CAShapeLayer()
         guard let selectedDateLayer = selectedDateLayer else {
@@ -85,7 +71,6 @@ class AMCalendarDataViewController: UIViewController {
         selectedDateLayer.path = path.cgPath
 
         selectedDateView.layer.addSublayer(selectedDateLayer)
-        
         selectedDateView.isHidden = false
     }
     
@@ -96,7 +81,7 @@ class AMCalendarDataViewController: UIViewController {
         selectedDateView.isHidden = true
     }
     
-    private func showNowDateLayer(dayButton:UIButton) {
+    private func showNowDateLayer(dayButton: UIButton) {
         nowDateLayer = CAShapeLayer()
         guard let nowDateLayer = nowDateLayer else {
             return
@@ -194,7 +179,7 @@ class AMCalendarDataViewController: UIViewController {
     
     private func setYearMonthLabel(monthDate: Date) {
         yearMonthLabel.font = adjustLabelFont(rect: yearMonthLabel.frame)
-        headerDateFormatter.calendar = Calendar.current
+        headerDateFormatter.calendar = .current
         headerDateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMM",
                                                                   options: 0,
                                                                   locale: getLocale())
@@ -218,7 +203,7 @@ class AMCalendarDataViewController: UIViewController {
     
     private func getLocale() -> Locale {
         guard let langId = Locale.preferredLanguages.first else {
-            return Locale.current
+            return .current
         }
         
         return Locale(identifier: langId)
@@ -231,7 +216,7 @@ class AMCalendarDataViewController: UIViewController {
         
         clearSelectView()
         showSelectView(dayButton: dayButton)
-        dayButtons.forEach{$0.isSelected = false}
+        dayButtons.forEach { $0.isSelected = false }
         dayButton.isSelected = true
         
         var components = calendar.dateComponents([.year, .month, .day, .weekday], from: monthDate)
@@ -246,13 +231,13 @@ class AMCalendarDataViewController: UIViewController {
     }
 
     private func adjustButtonFont(rect: CGRect) -> UIFont {
-        let length:CGFloat = (rect.width > rect.height) ? rect.height : rect.width
+        let length: CGFloat = (rect.width > rect.height) ? rect.height : rect.width
         let font = UIFont.systemFont(ofSize: length * 0.5)
         return font
     }
     
     private func adjustLabelFont(rect: CGRect) -> UIFont {
-        let length:CGFloat = (rect.width > rect.height) ? rect.height : rect.width
+        let length: CGFloat = (rect.width > rect.height) ? rect.height : rect.width
         let font = UIFont.systemFont(ofSize: length * 0.5)
         return font
     }
