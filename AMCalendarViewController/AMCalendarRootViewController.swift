@@ -81,6 +81,12 @@ class AMCalendarRootViewController: AMCalendar {
         }
     }
     
+    override var locale: Locale? {
+        didSet {
+            dataViewControllers.forEach { $0.locale = locale }
+        }
+    }
+    
     func setPageViewControlle(date: Date?) {
         view.backgroundColor = headerColor
         selectedDate = date
@@ -144,6 +150,7 @@ class AMCalendarRootViewController: AMCalendar {
         viewController.selectedDateTextColor = selectedDateTextColor
         viewController.selectedDateColor = selectedDateColor
         viewController.nowDateColor = nowDateColor
+        viewController.locale = locale
         return viewController
     }
     

@@ -35,6 +35,11 @@ public class AMCalendar: UIViewController {
     public var selectedDateColor: UIColor = .red
     /// Circle border color
     public var nowDateColor: UIColor = .green
+    
+    /// Locale used in header
+    ///
+    /// default is Locale(identifier: Locale.preferredLanguages.first!)
+    public var locale: Locale?
 }
 
 public protocol AMCalendarDelegate: AnyObject {

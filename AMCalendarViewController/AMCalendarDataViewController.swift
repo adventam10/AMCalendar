@@ -62,6 +62,15 @@ class AMCalendarDataViewController: UIViewController {
     var monthDate: Date?
     var pageIndex: Int = 0
     
+    var locale: Locale? {
+        didSet {
+            setWeekLabels()
+            if let monthDate = monthDate {
+                setYearMonthLabel(monthDate: monthDate)
+            }
+        }
+    }
+    
     var headerColor: UIColor = .clear {
         didSet {
             headerView?.backgroundColor = headerColor
@@ -144,6 +153,11 @@ class AMCalendarDataViewController: UIViewController {
         sundayWeekLabel?.textColor = sundayTextColor
         saturdayButtons?.forEach { $0.setTitleColor(saturdayTextColor, for: .normal) }
         saturdayWeekLabel?.textColor = saturdayTextColor
+        
+        setWeekLabels()
+        if let monthDate = monthDate {
+            setYearMonthLabel(monthDate: monthDate)
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -272,6 +286,9 @@ class AMCalendarDataViewController: UIViewController {
     }
     
     private func setWeekLabels() {
+        guard let weekLabels = weekLabels else {
+            return
+        }
         weekLabels.forEach { $0.font = adjustLabelFont(rect: $0.frame) }
         headerDateFormatter.locale = getLocale()
         for (index, label) in weekLabels.enumerated() {
@@ -280,6 +297,9 @@ class AMCalendarDataViewController: UIViewController {
     }
     
     private func setYearMonthLabel(monthDate: Date) {
+        guard let yearMonthLabel = yearMonthLabel else {
+            return
+        }
         yearMonthLabel.font = adjustLabelFont(rect: yearMonthLabel.frame)
         headerDateFormatter.calendar = .current
         headerDateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMM",
@@ -304,6 +324,9 @@ class AMCalendarDataViewController: UIViewController {
     }
     
     private func getLocale() -> Locale {
+        if let locale = locale {
+            return locale
+        }
         guard let langId = Locale.preferredLanguages.first else {
             return .current
         }
