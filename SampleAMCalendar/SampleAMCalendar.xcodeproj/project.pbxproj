@@ -7,24 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E407AF22354821D0096FA4A /* AMCalendarRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E407AEE2354821D0096FA4A /* AMCalendarRootViewController.swift */; };
+		0E407AF32354821D0096FA4A /* AMCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E407AEF2354821D0096FA4A /* AMCalendar.swift */; };
+		0E407AF42354821D0096FA4A /* AMCalendarDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E407AF02354821D0096FA4A /* AMCalendarDataViewController.swift */; };
+		0E407AF52354821D0096FA4A /* AMCalendarDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E407AF12354821D0096FA4A /* AMCalendarDataViewController.xib */; };
 		0E475375201F1FBA002EA382 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E475373201F1FBA002EA382 /* AppDelegate.swift */; };
 		0E475376201F1FBA002EA382 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E475374201F1FBA002EA382 /* ViewController.swift */; };
-		0E47537B201F1FC6002EA382 /* AMCalendarDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E475378201F1FC6002EA382 /* AMCalendarDataViewController.swift */; };
-		0E47537C201F1FC6002EA382 /* AMCalendarDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E475379201F1FC6002EA382 /* AMCalendarDataViewController.xib */; };
-		0E47537D201F1FC6002EA382 /* AMCalendarRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E47537A201F1FC6002EA382 /* AMCalendarRootViewController.swift */; };
-		0E582A262349979000DBDBEB /* AMCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E582A252349979000DBDBEB /* AMCalendar.swift */; };
 		0E9A08DC20037DBD00DD65DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E9A08DA20037DBD00DD65DB /* Main.storyboard */; };
 		0E9A08DE20037DBD00DD65DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E9A08DD20037DBD00DD65DB /* Assets.xcassets */; };
 		0E9A08E120037DBD00DD65DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E9A08DF20037DBD00DD65DB /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E407AEE2354821D0096FA4A /* AMCalendarRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMCalendarRootViewController.swift; sourceTree = "<group>"; };
+		0E407AEF2354821D0096FA4A /* AMCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMCalendar.swift; sourceTree = "<group>"; };
+		0E407AF02354821D0096FA4A /* AMCalendarDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMCalendarDataViewController.swift; sourceTree = "<group>"; };
+		0E407AF12354821D0096FA4A /* AMCalendarDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMCalendarDataViewController.xib; sourceTree = "<group>"; };
 		0E475373201F1FBA002EA382 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0E475374201F1FBA002EA382 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0E475378201F1FC6002EA382 /* AMCalendarDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMCalendarDataViewController.swift; sourceTree = "<group>"; };
-		0E475379201F1FC6002EA382 /* AMCalendarDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMCalendarDataViewController.xib; sourceTree = "<group>"; };
-		0E47537A201F1FC6002EA382 /* AMCalendarRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMCalendarRootViewController.swift; sourceTree = "<group>"; };
-		0E582A252349979000DBDBEB /* AMCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMCalendar.swift; sourceTree = "<group>"; };
 		0E9A08D320037DBD00DD65DB /* SampleAMCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleAMCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E9A08DB20037DBD00DD65DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0E9A08DD20037DBD00DD65DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -43,26 +43,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E407AED2354821D0096FA4A /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				0E407AEE2354821D0096FA4A /* AMCalendarRootViewController.swift */,
+				0E407AEF2354821D0096FA4A /* AMCalendar.swift */,
+				0E407AF02354821D0096FA4A /* AMCalendarDataViewController.swift */,
+				0E407AF12354821D0096FA4A /* AMCalendarDataViewController.xib */,
+			);
+			name = Source;
+			path = ../../../Source;
+			sourceTree = "<group>";
+		};
 		0E475372201F1FBA002EA382 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				0E475377201F1FC6002EA382 /* AMCalendarViewController */,
+				0E407AED2354821D0096FA4A /* Source */,
 				0E475373201F1FBA002EA382 /* AppDelegate.swift */,
 				0E475374201F1FBA002EA382 /* ViewController.swift */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		0E475377201F1FC6002EA382 /* AMCalendarViewController */ = {
-			isa = PBXGroup;
-			children = (
-				0E475378201F1FC6002EA382 /* AMCalendarDataViewController.swift */,
-				0E475379201F1FC6002EA382 /* AMCalendarDataViewController.xib */,
-				0E47537A201F1FC6002EA382 /* AMCalendarRootViewController.swift */,
-				0E582A252349979000DBDBEB /* AMCalendar.swift */,
-			);
-			name = AMCalendarViewController;
-			path = ../../../AMCalendarViewController;
 			sourceTree = "<group>";
 		};
 		0E9A08CA20037DBD00DD65DB = {
@@ -153,7 +153,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E47537C201F1FC6002EA382 /* AMCalendarDataViewController.xib in Resources */,
+				0E407AF52354821D0096FA4A /* AMCalendarDataViewController.xib in Resources */,
 				0E9A08E120037DBD00DD65DB /* LaunchScreen.storyboard in Resources */,
 				0E9A08DE20037DBD00DD65DB /* Assets.xcassets in Resources */,
 				0E9A08DC20037DBD00DD65DB /* Main.storyboard in Resources */,
@@ -167,11 +167,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E47537D201F1FC6002EA382 /* AMCalendarRootViewController.swift in Sources */,
+				0E407AF42354821D0096FA4A /* AMCalendarDataViewController.swift in Sources */,
+				0E407AF22354821D0096FA4A /* AMCalendarRootViewController.swift in Sources */,
 				0E475376201F1FBA002EA382 /* ViewController.swift in Sources */,
-				0E582A262349979000DBDBEB /* AMCalendar.swift in Sources */,
 				0E475375201F1FBA002EA382 /* AppDelegate.swift in Sources */,
-				0E47537B201F1FC6002EA382 /* AMCalendarDataViewController.swift in Sources */,
+				0E407AF32354821D0096FA4A /* AMCalendar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,19 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E407AFB2354823B0096FA4A /* AMCalendarRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E407AF72354823B0096FA4A /* AMCalendarRootViewController.swift */; };
+		0E407AFC2354823B0096FA4A /* AMCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E407AF82354823B0096FA4A /* AMCalendar.swift */; };
+		0E407AFD2354823B0096FA4A /* AMCalendarDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E407AF92354823B0096FA4A /* AMCalendarDataViewController.swift */; };
+		0E407AFE2354823B0096FA4A /* AMCalendarDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E407AFA2354823B0096FA4A /* AMCalendarDataViewController.xib */; };
 		0E47536C201F1F33002EA382 /* AMCalendar.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E47536A201F1F33002EA382 /* AMCalendar.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E475382201F1FE9002EA382 /* AMCalendarDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E47537F201F1FE9002EA382 /* AMCalendarDataViewController.swift */; };
-		0E475383201F1FE9002EA382 /* AMCalendarDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E475380201F1FE9002EA382 /* AMCalendarDataViewController.xib */; };
-		0E475384201F1FE9002EA382 /* AMCalendarRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E475381201F1FE9002EA382 /* AMCalendarRootViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E407AF72354823B0096FA4A /* AMCalendarRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMCalendarRootViewController.swift; sourceTree = "<group>"; };
+		0E407AF82354823B0096FA4A /* AMCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMCalendar.swift; sourceTree = "<group>"; };
+		0E407AF92354823B0096FA4A /* AMCalendarDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMCalendarDataViewController.swift; sourceTree = "<group>"; };
+		0E407AFA2354823B0096FA4A /* AMCalendarDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMCalendarDataViewController.xib; sourceTree = "<group>"; };
 		0E475367201F1F33002EA382 /* AMCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AMCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E47536A201F1F33002EA382 /* AMCalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMCalendar.h; sourceTree = "<group>"; };
 		0E47536B201F1F33002EA382 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0E47537F201F1FE9002EA382 /* AMCalendarDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMCalendarDataViewController.swift; sourceTree = "<group>"; };
-		0E475380201F1FE9002EA382 /* AMCalendarDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMCalendarDataViewController.xib; sourceTree = "<group>"; };
-		0E475381201F1FE9002EA382 /* AMCalendarRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMCalendarRootViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,10 +35,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E407AF62354823B0096FA4A /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				0E407AF72354823B0096FA4A /* AMCalendarRootViewController.swift */,
+				0E407AF82354823B0096FA4A /* AMCalendar.swift */,
+				0E407AF92354823B0096FA4A /* AMCalendarDataViewController.swift */,
+				0E407AFA2354823B0096FA4A /* AMCalendarDataViewController.xib */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		0E47535D201F1F33002EA382 = {
 			isa = PBXGroup;
 			children = (
-				0E47537E201F1FE9002EA382 /* AMCalendarViewController */,
+				0E407AF62354823B0096FA4A /* Source */,
 				0E475369201F1F33002EA382 /* AMCalendar */,
 				0E475368201F1F33002EA382 /* Products */,
 			);
@@ -57,16 +70,6 @@
 				0E47536B201F1F33002EA382 /* Info.plist */,
 			);
 			path = AMCalendar;
-			sourceTree = "<group>";
-		};
-		0E47537E201F1FE9002EA382 /* AMCalendarViewController */ = {
-			isa = PBXGroup;
-			children = (
-				0E47537F201F1FE9002EA382 /* AMCalendarDataViewController.swift */,
-				0E475380201F1FE9002EA382 /* AMCalendarDataViewController.xib */,
-				0E475381201F1FE9002EA382 /* AMCalendarRootViewController.swift */,
-			);
-			path = AMCalendarViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,7 +143,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E475383201F1FE9002EA382 /* AMCalendarDataViewController.xib in Resources */,
+				0E407AFE2354823B0096FA4A /* AMCalendarDataViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,8 +154,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E475384201F1FE9002EA382 /* AMCalendarRootViewController.swift in Sources */,
-				0E475382201F1FE9002EA382 /* AMCalendarDataViewController.swift in Sources */,
+				0E407AFB2354823B0096FA4A /* AMCalendarRootViewController.swift in Sources */,
+				0E407AFC2354823B0096FA4A /* AMCalendar.swift in Sources */,
+				0E407AFD2354823B0096FA4A /* AMCalendarDataViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
